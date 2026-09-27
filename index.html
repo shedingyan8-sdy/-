@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>UI 动效实验室 · 卡片扫光</title>
+<style>
+:root{color-scheme:dark;font-family:Inter,"PingFang SC","Microsoft YaHei",sans-serif}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;display:grid;place-items:center;background:radial-gradient(circle at 50% 25%,#25233c,#0c0b16 65%);color:#f6f2ff}
+main{width:min(92vw,760px);padding:48px 0}h1{font-size:clamp(28px,5vw,42px);letter-spacing:.02em;margin:0 0 10px}p{color:#bcb4d1;line-height:1.7}
+.card{position:relative;isolation:isolate;overflow:hidden;margin:36px 0 22px;min-height:330px;padding:38px;border-radius:28px;border:1px solid #ad8cff77;background:radial-gradient(circle at 80% 15%,#5b3c8e 0%,transparent 46%),linear-gradient(130deg,#20152f,#302150 58%,#171323);box-shadow:0 28px 70px #0009,inset 0 1px #ffffff44}
+.card:before{content:"";position:absolute;inset:-70% -40%;z-index:2;pointer-events:none;background:linear-gradient(105deg,transparent 43%,#ffffff08 47%,#f8e7ff48 50%,#ffffff16 52%,transparent 57%);transform:translateX(-110%) rotate(-8deg);animation:sweep 5.2s ease-in-out infinite}
+.card:after{content:"";position:absolute;inset:0;pointer-events:none;border-radius:inherit;box-shadow:inset 0 0 0 1px #ffffff20,inset 0 30px 60px #ffffff08}
+@keyframes sweep{0%,10%{transform:translateX(-110%) rotate(-8deg)}42%,100%{transform:translateX(110%) rotate(-8deg)}}
+.eyebrow{color:#dec6ff;font-size:13px;letter-spacing:.2em}.card h2{font-size:clamp(32px,6vw,54px);font-weight:600;margin:25px 0 12px}.card p{max-width:430px;color:#e9dff8}.pill{display:inline-block;margin-top:27px;padding:10px 18px;border:1px solid #e4c5ff88;border-radius:100px;background:#ffffff14;font-size:13px}
+.gem{position:absolute;right:10%;top:20%;width:145px;height:145px;opacity:.83;transform:rotate(-14deg);filter:drop-shadow(0 12px 24px #b688ff77)}
+.spark{position:absolute;z-index:3;width:50px;height:50px;overflow:visible;filter:drop-shadow(0 0 9px #f5d5ff);animation:twinkle 5.2s infinite}
+.spark.one{right:17%;top:18%}.spark.two{right:36%;bottom:21%;width:28px;height:28px;animation-delay:.3s}
+@keyframes twinkle{0%,13%,39%,100%{opacity:0;transform:scale(.3) rotate(-10deg)}20%,27%{opacity:1;transform:scale(1) rotate(8deg)}}
+button{background:#e4ccff;color:#211331;border:0;border-radius:12px;padding:12px 20px;font:inherit;cursor:pointer}
+.card.paused,.card.paused:before,.card.paused .spark{animation-play-state:paused}
+.small{font-size:13px}.footer{margin-top:30px}
+@media(max-width:600px){.card{min-height:370px;padding:28px}.gem{width:110px;right:6%;top:10%;opacity:.5}.card h2{margin-top:58px}}
+@media(prefers-reduced-motion:reduce){.card:before,.spark{animation:none;opacity:0}}
+</style>
+</head>
+<body><main><h1>UI 动效实验室</h1><p>卡片扫光与双尺寸闪光。用缓入缓出的光带和错开的星芒，让材质有呼吸感。</p>
+<section class="card" id="card" aria-label="卡片扫光动效演示">
+<svg class="gem" viewBox="0 0 160 160" aria-hidden="true"><defs><linearGradient id="g" x2="1" y2="1"><stop stop-color="#fff2ff"/><stop offset=".45" stop-color="#ad83e9"/><stop offset="1" stop-color="#5a3b91"/></linearGradient></defs><path fill="url(#g)" stroke="#ffffff99" stroke-width="2" d="M33 30h94l27 42-74 78L6 72z"/><path fill="none" stroke="#fff9" d="M6 72h148M33 30l20 42 27 78 27-78 20-42M53 72h54"/></svg>
+<span class="eyebrow">MOTION STUDY / 01</span><h2>微光流转</h2><p>光带经过卡片表面，两处星芒依次亮起。演示素材均为原创示例。</p><span class="pill">探索更多</span>
+<svg class="spark one" viewBox="0 0 100 100" aria-hidden="true"><path d="M50 2 Q54 45 98 50 Q54 55 50 98 Q46 55 2 50 Q46 45 50 2Z" fill="#fff8ff"/><circle cx="50" cy="50" r="16" fill="#fff"/></svg>
+<svg class="spark two" viewBox="0 0 100 100" aria-hidden="true"><path d="M50 2 Q54 45 98 50 Q54 55 50 98 Q46 55 2 50 Q46 45 50 2Z" fill="#fff8ff"/></svg>
+</section><button id="toggle" aria-pressed="false">暂停动效</button><p class="small footer">纯 HTML / CSS / SVG · 支持减少动态效果的系统设置</p></main>
+<script>const c=document.getElementById('card'),b=document.getElementById('toggle');b.onclick=()=>{const paused=c.classList.toggle('paused');b.textContent=paused?'播放动效':'暂停动效';b.setAttribute('aria-pressed',String(paused))}</script>
+</body></html>
